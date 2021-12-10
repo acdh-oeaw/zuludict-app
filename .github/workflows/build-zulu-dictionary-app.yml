@@ -1,0 +1,12 @@
+name: build-zulu-dictionary-app
+on:
+  push: {}
+  repository_dispatch:
+    types: [run]
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: |
+          echo "Hello ${{ github.event.inputs.name }}!"
+          echo "- in ${{ github.event.inputs.home }}!"

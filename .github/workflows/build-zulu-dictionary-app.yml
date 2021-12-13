@@ -1,4 +1,7 @@
 name: build-zulu-dictionary-app
+env:
+  BUILDPACK_URL: https://github.com/simar0at/heroku-buildpack-basex
+  DOCKER_TAG: acdhch/zulu-app
 on:
   push: {}
   repository_dispatch:
@@ -24,6 +27,5 @@ jobs:
           EXPOSE 5000
           CMD ["/bin/herokuish", "procfile", "start", "web"]
           EOF
-          docker build --build-arg BUILDPACK_URL="$BUILDPACK_URL" --tag "$GITHUB_REPOSITORY:$GITHUB_REF_NAME" .
+          docker build --build-arg BUILDPACK_URL="$BUILDPACK_URL" --tag "$DOCKER_TAG:$GITHUB_REF_NAME" .
           docker images
-          

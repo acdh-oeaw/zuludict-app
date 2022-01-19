@@ -1,7 +1,7 @@
 name: build-zulu-dictionary-app
 env:
   BUILDPACK_URL: https://github.com/simar0at/heroku-buildpack-basex
-  DOCKER_TAG: acdhch/zulu-app
+  DOCKER_TAG: ghcr.io/acdh-oeaw/zuludict-app
 on:
   push: {}
   repository_dispatch:
@@ -41,5 +41,6 @@ jobs:
           build-args: |
             BUILDPACK_URL=${{ env.BUILDPACK_URL }}
           tags: |
-            ghcr.io/acdh-oeaw/zuludict-app/${{ env.DOCKER_TAG }}:${{ github.ref_name }}
+            ${{ env.DOCKER_TAG }}:${{ github.ref_name }}
+          push: true
           

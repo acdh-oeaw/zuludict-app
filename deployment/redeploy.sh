@@ -36,6 +36,7 @@ if [ $ret != "0" ]; then exit $ret; fi
 if [ "$onlytags"x = 'truex' ]
 then
 uiversion=$(git describe --tags --always)
+uipath=$(pwd)
 echo checking out UI ${uiversion}
 git -c advice.detachedHead=false checkout ${uiversion}
 find ./ -type f -and \( -name '*.js' -or -name '*.html' \) -not \( -path './node_modules/*' -or -path './cypress/*' \) -exec sed -i "s~\@version@~$uiversion~g" {} \;
@@ -66,14 +67,16 @@ who=$(git show -s --format='%cN')
 when=$(git show -s --format='%as')
 message=$(git show -s --format='%B')
 revisionDesc=$(sed ':a;N;$!ba;s/\n/\\n/g' <<EOF
-<revisionDesc>
   <change n="$dataversion" who="$who" when="$when">
-$message
-   </change>
-</revisionDesc>
+    $message
+  </change>
 EOF
 )
-find ./ -type f -and \( -name '*.js' -or -name '*.html' \) -not \( -path './node_modules/*' -or -path './cypress/*' \) -exec sed -i "s~\@data-version@~$dataversion~g" {} \;
+for d in $(ls -d dc_*__publ)
+do echo "Directory $d:"
+find "$d" -type f -and -name '*.xml' -exec sed -i "s~\(</revisionDesc>\)~$revisionDesc\\n\1~g" {} \;
+done
+find $uipath -type f -and \( -name '*.js' -or -name '*.html' \) -not \( -path './node_modules/*' -or -path './cypress/*' \) -exec sed -i "s~\@data-version@~$dataversion~g" {} \;
 else
 git checkout master
 fi

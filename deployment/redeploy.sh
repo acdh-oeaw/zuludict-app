@@ -25,9 +25,9 @@ export PASSWORD=$local_password
 
 #------ Update XQuery code -----------
 echo updating BaseX app code
-if [ -d webapp/zuludict-app ]
+if [ -d ${BUILD_DIR:-webapp/zuludict-app} ]
 then
-pushd webapp/zuludict-app
+pushd ${BUILD_DIR:-webapp/zuludict-app}
 git reset --hard
 git checkout master
 git pull

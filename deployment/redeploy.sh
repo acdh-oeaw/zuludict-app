@@ -73,6 +73,7 @@ $message
 </revisionDesc>
 EOF
 )
+find ./ -type f -and \( -name '*.js' -or -name '*.html' \) -not \( -path './node_modules/*' -or -path './cypress/*' \) -exec sed -i "s~\@data-version@~$dataversion~g" {} \;
 else
 git checkout master
 fi

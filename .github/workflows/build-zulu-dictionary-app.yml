@@ -58,7 +58,7 @@ jobs:
           EOF
           docker build --tag ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-test .
           docker run --rm -t ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-test /bin/herokuish buildpack test
-  call-deployment:
+  deploy-zulu-dictionary-app:
     needs: [build, test]
     uses: ./.github/workflows/deploy-zulu-dictionary-app.yml
     secrets:

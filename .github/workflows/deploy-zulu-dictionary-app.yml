@@ -3,7 +3,7 @@ env:
   DOCKER_TAG: ghcr.io/acdh-oeaw/zuludict-app
   APP_NAME: zuludict-app
   APP_ROOT: "/zuludict"
-  SERVICE_ID: "99999"
+  SERVICE_ID: "19936"
   PUBLIC_URL: https://zuludict.acdh.oeaw.ac.at
 on:
   workflow_call:

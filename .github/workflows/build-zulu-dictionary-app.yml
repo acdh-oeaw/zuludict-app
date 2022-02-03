@@ -44,4 +44,5 @@ jobs:
             ${{ env.DOCKER_TAG }}:${{ github.ref_name }}
           push: true
   deployment:
+    needs: build
     uses: ./.github/workflows/deploy-zulu-dictionary-app.yml

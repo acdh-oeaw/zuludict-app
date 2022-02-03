@@ -67,10 +67,8 @@ jobs:
           scheme: "HTTP"
           probeType: "httpGet"
         EOF
-        pwd
-        cat auto-deploy-app-values.yaml
     - name: Deploy using helm and the local helm chart
       run: |
-        pwd
-        ls -la .github
-        helm upgrade zuludict-app $(pwd)/.github/auto-deplay-app --values $(pwd)/auto-deploy-app-values.yaml --install --atomic
+        echo Deploying with auto-deploy-app-values.yaml:
+        cat auto-deploy-app-values.yaml
+        helm upgrade zuludict-app .github/auto-deploy-app --values auto-deploy-app-values.yaml --install --atomic

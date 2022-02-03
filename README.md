@@ -9,6 +9,21 @@ Vienna, [ACDH-CH](https://www.oeaw.ac.at/acdh) 2011–2021
 
 This is the web application code of the ACDH-CH Zulu dictionary available at [https://zuludict.acdh-dev.oeaw.ac.at/](https://zuludict.acdh-dev.oeaw.ac.at/). It is built using the [*Web Dictionary*-feature](https://clarin.oeaw.ac.at/lrp/dict-gate/vle_docu/vle_docu__v001.html#web_dictionary) of the [Vienna Lexicographic Editor (VLE)](https://www.oeaw.ac.at/acdh/tools/vle).
 
+## Set up a local container instance
+
+We use container images built here on GitHub to run the public service.
+To fetch the latest image use
+
+```bash
+docker pull ghcr.io/acdh-oeaw/zuludict-app:master
+```
+
+To run the latest image use
+
+```bash
+docker run --rm -it -p 8984:5000 ghcr.io/acdh-oeaw/zuludict-app:master
+```
+
 ## Set up a local instance
 
 ### Prerequisites

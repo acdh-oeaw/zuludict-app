@@ -24,6 +24,7 @@ jobs:
       run: |
         mkdir ${HOME}/.kube
         echo ${{ secrets.ACDH_KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+        chmod 0600 ${HOME}/.kube/config
         kubectl config set-context --current --namespace=${{ env.APP_NAME }}
     - name: Create auto-deploy-app-values.yaml
       run: |
@@ -66,6 +67,9 @@ jobs:
           scheme: "HTTP"
           probeType: "httpGet"
         EOF
+        pwd
+        cat auto-deploy-app-values.yaml
     - name: Deploy using helm and the local helm chart
       run: |
+        pwd
         helm upgrade zuludict-app .github/auto-deplay-app --values auto-deploy-app-values.yaml --install --atomic

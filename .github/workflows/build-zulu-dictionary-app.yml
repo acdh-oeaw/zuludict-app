@@ -43,10 +43,27 @@ jobs:
           tags: |
             ${{ env.DOCKER_TAG }}:${{ github.ref_name }}
           push: true
-  deployment:
-    needs: build
+  test:
     runs-on: ubuntu-20.04
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Run tests using heroku buildpack
+        run: |
+          cat <<EOF > Dockerfile  
+          FROM gliderlabs/herokuish
+          COPY . /tmp/app
+          ENV BUILDPACK_URL=${{ env.BUILDPACK_URL }}
+          ENV USER=herokuishuser
+          EOF
+          docker build --tag ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-test .
+          docker run --rm -t ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-test /bin/herokuish buildpack test
+  deployment:
+    needs: [build, test]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
       - uses: ./.github/workflows/deploy-zulu-dictionary-app.yml
         with:
           ACDH_KUBE_CONFIG: ${{ secrets.ACDH_KUBE_CONFIG }}

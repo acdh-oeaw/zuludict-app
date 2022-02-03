@@ -1,6 +1,11 @@
-name: Deploy
-on: ['deployment']
-
+name: Deploy zuludict-app
+env:
+  DOCKER_TAG: ghcr.io/acdh-oeaw/zuludict-app
+concurrency: ci-${{ github.ref }}
+on:
+  push: {}
+  repository_dispatch:
+    types: [run]
 jobs:
   deployment:
     runs-on: 'ubuntu-latest'

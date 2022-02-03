@@ -1,7 +1,8 @@
-name: build-zulu-dictionary-app
+name: Build zuludict-app
 env:
   BUILDPACK_URL: https://github.com/simar0at/heroku-buildpack-basex
   DOCKER_TAG: ghcr.io/acdh-oeaw/zuludict-app
+concurrency: ci-${{ github.ref }}
 on:
   push: {}
   repository_dispatch:

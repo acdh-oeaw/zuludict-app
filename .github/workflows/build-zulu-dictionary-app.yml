@@ -46,3 +46,5 @@ jobs:
   deployment:
     needs: build
     uses: ./.github/workflows/deploy-zulu-dictionary-app.yml
+    with:
+      ACDH_KUBE_CONFIG: ${{ secrets.ACDH_KUBE_CONFIG }}

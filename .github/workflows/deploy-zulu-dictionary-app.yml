@@ -6,7 +6,11 @@ env:
   SERVICE_ID: "99999"
   PUBLIC_URL: https://zuludict.acdh.oeaw.ac.at
 on:
-  workflow_call: {}
+  workflow_call:
+    secrets:
+      ACDH_KUBE_CONFIG:
+        description: 'The kubctl config file to access the ACDH kubernetes'
+        required: true
   workflow_dispatch: {}
   repository_dispatch:
     types: [run]
@@ -33,7 +37,7 @@ jobs:
           "ID": ${{ env.SERVICE_ID }}
         gitlab:
           app: ${{ env.APP_NAME }}
-          envURL: https://github.com/acdh-oeaw/zuludict-app
+          envURL: ${{ github.repositoryUrl }}
         service:
           enabled: true
           name: ${{ env.APP_NAME }}

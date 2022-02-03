@@ -58,12 +58,8 @@ jobs:
           EOF
           docker build --tag ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-test .
           docker run --rm -t ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-test /bin/herokuish buildpack test
-  deployment:
+  call-deployment:
     needs: [build, test]
-    runs-on: ubuntu-20.04
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - uses: ./.github/workflows/deploy-zulu-dictionary-app.yml
-        with:
-          ACDH_KUBE_CONFIG: ${{ secrets.ACDH_KUBE_CONFIG }}
+    uses: ./.github/workflows/deploy-zulu-dictionary-app.yml
+    secrets:
+      ACDH_KUBE_CONFIG: ${{ secrets.ACDH_KUBE_CONFIG }}

@@ -72,4 +72,5 @@ jobs:
     - name: Deploy using helm and the local helm chart
       run: |
         pwd
+        ls -la
         helm upgrade zuludict-app .github/auto-deplay-app --values auto-deploy-app-values.yaml --install --atomic

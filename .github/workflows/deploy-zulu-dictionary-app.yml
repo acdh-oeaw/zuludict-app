@@ -1,9 +1,9 @@
 name: Deploy zuludict-app
 env:
   DOCKER_TAG: ghcr.io/acdh-oeaw/zuludict-app
-concurrency: ci-${{ github.ref }}
 on:
-  push: {}
+  workflow_call: {}
+  workflow_dispatch: {}
   repository_dispatch:
     types: [run]
 jobs:

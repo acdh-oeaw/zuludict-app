@@ -26,6 +26,7 @@ jobs:
         echo ${{ secrets.ACDH_KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
         chmod 0600 ${HOME}/.kube/config
         kubectl config set-context --current --namespace=${{ env.APP_NAME }}
+        kubectl get pod
     - name: Create auto-deploy-app-values.yaml
       run: |
         cat > auto-deploy-app-values.yaml <<EOF
@@ -35,7 +36,7 @@ jobs:
           tag: ${{ github.ref_name }}
           pullPolicy: Always
         extraLabels:
-          "ID": ${{ env.SERVICE_ID }}
+          "ID": "${{ env.SERVICE_ID }}"
         gitlab:
           app: ${{ env.APP_NAME }}
           envURL: ${{ github.repositoryUrl }}
@@ -69,6 +70,4 @@ jobs:
         EOF
     - name: Deploy using helm and the local helm chart
       run: |
-        echo Deploying with auto-deploy-app-values.yaml:
-        cat auto-deploy-app-values.yaml
         helm upgrade zuludict-app .github/auto-deploy-app --values auto-deploy-app-values.yaml --install --atomic

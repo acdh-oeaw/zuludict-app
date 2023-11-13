@@ -8,7 +8,7 @@ declare function zuDict:expandExamplePointers($in as item(), $dict as document-n
         case document-node() return document {
             zuDict:expandExamplePointers($in/*, $dict)
         }
-        case element(tei:ptr) return $dict//node()[@xml:id = substring-after($in/@target, '#')]
+        case element(tei:ref) return $dict//node()[@xml:id = substring-after($in/@target, '#')]
         case element() return 
             (: element { QName( namespace-uri($in), local-name($in) ) } { for $node in $in/node() return wde:expandExamplePointers($node, $dict) } :)
             element { QName( namespace-uri($in), local-name($in) ) } { 
@@ -49,14 +49,19 @@ let $rs :=
 
 let $rs2 := <res>{
     for $r in $rs
-    return <w index="{$r/../@id}" lemma="{$r/@lemma}">{$r/text()}</w>
+      return
+        if ($r/@lemma)
+          then <w lemma="{$r/@lemma}">{$r/text()}</w>
+          else <w>{$r/text()}</w>
+    (: return <w index="{$r/../@id}" lemma="{$r/@lemma}">{$r/text()}</w> :)
+    (: return <w index="{$r/../@id}" lemma="{$r/text()}">{$r/text()}</w> :)
   }</res>
 
   let $style := doc('index_2_html.xslt')
   let $ress := <results>{$rs2}</results>
   let $sReturn := xslt:transform($ress, $style)
   return
-    $sReturn 
+    $sReturn
 };
 
 declare function zuDict:createMatchString($in as xs:string) {
@@ -79,25 +84,31 @@ declare
 function zuDict:dict_query($dict as xs:string, $query as xs:string*, $xsltfn as xs:string) {    
   let $nsTei := "declare namespace tei = 'http://www.tei-c.org/ns/1.0';"
   let $queries := tokenize($query, 'yyy')
+  let $entry := 'collection("' || $dict || '")//tei:entry'
+  let $example := 'collection("' || $dict || '")//tei:div/tei:cit[@type="example"]'
   let $qs := 
      for $query in $queries
         let $terms := tokenize(normalize-space($query), '=')
         return
           switch(normalize-space($terms[1]))
-          case 'any' return      '[.//node()[' || zuDict:createMatchString($terms[2]) || ']]'
-          case 'lem' return      '[tei:form[@type="lemma"]/tei:orth[' || zuDict:createMatchString($terms[2]) || ']]'
-          case 'infl' return     '[tei:form[@type="inflected"]/tei:orth[' || zuDict:createMatchString($terms[2]) || ']]'
-          case 'en' return       '[tei:sense/tei:cit[@type="translation"][@xml:lang="en"]/tei:quote[' || zuDict:createMatchString($terms[2]) || ']]'
-          case 'de' return       '[tei:sense/tei:cit[@type="translation"][@xml:lang="de"]/tei:quote[' || zuDict:createMatchString($terms[2]) || ']]'
-          case 'dom' return      '[tei:sense/tei:usg[' || zuDict:createMatchString($terms[2]) || ']]'
-          case 'etymLang' return '[tei:etym/tei:lang[' || zuDict:createMatchString($terms[2]) || ']]'
-          case 'etymSrc' return  '[tei:etym/tei:mentioned['|| zuDict:createMatchString($terms[2]) || ']]'
-          case 'subc' return     '[tei:gramGrp/tei:gram[@type="subc"][' || zuDict:createMatchString($terms[2]) || ']]'
-          case 'pos' return      '[tei:gramGrp/tei:gram[@type="pos"][' || zuDict:createMatchString($terms[2]) || ']]'          
-          default return      '[.//node()[' || zuDict:createMatchString($terms[2]) || ']]'
+          case 'any' return      $entry||'[.//node()[' || zuDict:createMatchString($terms[2]) || ']] | ' || 
+                                 $example||'/tei:quote[' || zuDict:createMatchString($terms[2] || '.*') || ']|' ||
+                                 $example||'/tei:cit/tei:quote[' || zuDict:createMatchString($terms[2] || '.*') || ']'          
+          case 'lem' return      $entry||'[tei:form[@type="lemma"]/tei:orth[' || zuDict:createMatchString($terms[2]) || ']]'
+          case 'infl' return     $entry||'[tei:form[@type="inflected"]/tei:orth[' || zuDict:createMatchString($terms[2]) || ']]'
+          case 'en' return       $entry||'[tei:sense/tei:cit[@type="translationEquivalent"][@xml:lang="en"]/tei:form/tei:orth[' || zuDict:createMatchString($terms[2]) || ']]'
+          case 'de' return       $entry||'[tei:sense/tei:cit[@type="translationEquivalent"][@xml:lang="de"]/tei:form/tei:orth[' || zuDict:createMatchString($terms[2]) || ']]'
+          case 'dom' return      $entry||'[tei:sense/tei:usg[@type="domain"][' || zuDict:createMatchString($terms[2]) || ']]'
+          case 'etymLang' return $entry||'[tei:etym/tei:cit/@xml:lang[' || zuDict:createMatchString($terms[2]) || ']]'
+          case 'etymSrc' return  $entry||'[tei:etym/tei:cit/tei:form/tei:orth['|| zuDict:createMatchString($terms[2]) || ']]'
+          case 'pos' return      $entry||'[tei:gramGrp/tei:gram[@type="pos"][' || zuDict:createMatchString($terms[2]) || ']]'          
+          case 'examples' return $example||'/tei:quote[' || zuDict:createMatchString($terms[2] || '.*') || ']|' ||
+                                 $example||'/tei:cit/tei:quote[' || zuDict:createMatchString($terms[2] || '.*') || ']'          
+          default return      $entry||'[.//node()[' || zuDict:createMatchString($terms[2]) || ']'
     
-  let $qq := 'collection("' || $dict || '")//tei:entry'||string-join($qs)
-  let $results := xquery:eval($nsTei||$qq)
+  let $qq := string-join($qs)
+  (: let $qq := 'collection("' || $dict || '")//tei:entry'||string-join($qs) :)
+  let $results := xquery:eval($nsTei||$qq) 
   (: return <answer>{count($res)}||{$res}</answer> :)
   
   (: let $results := xquery:eval($query) :)
@@ -106,21 +117,25 @@ function zuDict:dict_query($dict as xs:string, $query as xs:string*, $xsltfn as 
     for $ed in $eds
       return <ed>{$ed}</ed> :)
     
-  let $exptrs := $results//tei:ptr[@type = 'example']
+  let $exptrs := $results//tei:ref[@type = 'example']
   let $entries := 
     for $r in $results
       return ($r/ancestor::tei:entry, $r/ancestor::tei:cit[@type='example'], $r)[1]
 
   let $res := zuDict:distinct-nodes($entries)
-  let $res2 := for $e in $res return zuDict:expandExamplePointers($e, collection($dict))
+  let $res2 :=
+    if (count($exptrs)=0)
+      then $res
+      else for $e in $res return zuDict:expandExamplePointers($e, collection($dict))
    
   let $style := doc($xsltfn)
   let $ress := <div type="results" xmlns="http://www.tei-c.org/ns/1.0">{$res2}</div>
   
-  let $sReturn := xslt:transform-text($ress, $style)
-
-  return     
-     $sReturn
+  let $sReturn := xslt:transform-text($ress, $style)    
+  
+  return
+    $sReturn
+     
 
     (: if (wde:check-user_($dict, $user, $pw)) :)
       (: then $sReturn :)

@@ -15,7 +15,7 @@ table {
 td {
   border: 1px solid black;
   padding-left: 5px;
-  vertical-align: top;
+  vertical-align: text-bottom;
   background: white;
 }
 

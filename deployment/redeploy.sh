@@ -29,7 +29,7 @@ if [ -d ${BUILD_DIR:-webapp/zuludict-app} ]
 then
 pushd ${BUILD_DIR:-webapp/zuludict-app}
 git reset --hard
-git checkout master
+git checkout main
 git pull
 ret=$?
 if [ $ret != "0" ]; then exit $ret; fi
@@ -41,7 +41,7 @@ echo checking out UI ${uiversion}
 git -c advice.detachedHead=false checkout ${uiversion}
 find ./ -type f -and \( -name '*.js' -or -name '*.html' \) -not \( -path './node_modules/*' -or -path './cypress/*' \) -exec sed -i "s~\@version@~$uiversion~g" {} \;
 else
-git checkout master
+git checkout main
 fi
 popd
 fi

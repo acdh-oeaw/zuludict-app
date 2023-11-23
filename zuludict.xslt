@@ -74,30 +74,18 @@
                <!-- ********************************************* -->
                <!-- ***  ETYMOLOGY ****************************** -->
                <!-- ********************************************* -->
-               <xsl:if test="string-length(tei:etym)&gt;0">
+               <xsl:if test="tei:etym ">
                   <tr>
-                     <td class="tdHead">Etym.</td>
+                     <td class="tdHead">Etymology</td>
                      <td>
-                        <span class="spEtym">
-                           <xsl:for-each select="tei:etym">
-                              <xsl:if test="position()&gt;1"><br/></xsl:if>
-                              <xsl:variable name="etym">
-                                 <xsl:choose>
-                                    <xsl:when test="tei:cit/@xml:lang='en'">˂ Eng.</xsl:when>
-                                    <xsl:when test="tei:cit/@xml:lang='af'">˂ Afr.</xsl:when>
-                                    <xsl:when test="tei:cit/@xml:lang='ru'">˂ Russian</xsl:when>
-                                    <xsl:when test="tei:cit/@xml:lang='ar'">˂ Arabic</xsl:when>
-                                    <xsl:when test="tei:cit/@xml:lang='xh'">˂ isiXhosa</xsl:when>
-                                    <xsl:when test="tei:cit/@xml:lang='it'">˂ Italian</xsl:when>
-                                 </xsl:choose>
-                                 <xsl:text> (</xsl:text><xsl:value-of select="tei:cit/tei:form/tei:orth"/>)
-                              </xsl:variable>
-                              <xsl:value-of select="$etym"/>
-                           </xsl:for-each>
-                        </span>
+                        <xsl:for-each select="tei:etym ">
+                           <xsl:if test="position()&gt;1"><br/></xsl:if>
+                           ˂ <xsl:value-of select="tei:cit/tei:form/tei:orth"/> (<xsl:value-of select="tei:cit/@xml:lang"/>)
+                        </xsl:for-each>
                      </td>
                   </tr>
                </xsl:if>
+                              
 
                <!-- ********************************************* -->
                <!-- ***  INFLECTED FORMS (Pls, etc.) ************ -->

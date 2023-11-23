@@ -41,35 +41,18 @@
             </div>
 
             <table class="tbEntry">
-               <!-- ********************************************* -->
-               <!-- ***  VARIANTS OF LEMMA  ********************* -->
-               <!-- ********************************************* -->
-               <xsl:if test="tei:form[@type='lemma']/tei:form[@type='variant']">
+               <xsl:if test="tei:form/tei:form[@type='variant']">
                   <tr>
-                     <td class="tdHead">Variants</td>
-                     <td class="tdSense">
-                        <div class="dvDef">
-                           <xsl:for-each select="tei:form[@type='lemma']/tei:form[@type='variant']">
-                              <xsl:if test="position()&gt;1"><xsl:text>, </xsl:text></xsl:if>
-                              <xsl:value-of select="tei:orth"/>
-                              <xsl:if test="tei:gramGrp[tei:gram]">
-                                 <xsl:variable name="out">
-                                    <xsl:for-each select="tei:gramGrp/tei:gram">
-                                       <xsl:if test="position()&gt;1">, </xsl:if>
-                                       <xsl:choose>
-                                          <xsl:when test="@type='nomClass'">cl.<xsl:value-of select="."/></xsl:when>
-                                          <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
-                                       </xsl:choose>
-                                    </xsl:for-each>
-                                 </xsl:variable>
-                                 <span class="spGramGrp"> (<xsl:value-of select="normalize-space($out)"/>)</span>
-                              </xsl:if>
-                           </xsl:for-each>
-                        </div>
+                     <td class="tdHead">Lemma (var.)</td>
+                     <td>
+                        <xsl:for-each select="tei:form/tei:form[@type='variant'] ">
+                           <xsl:if test="position()&gt;1"><xsl:text>, </xsl:text></xsl:if>
+                           <xsl:value-of select="tei:orth"/>
+                        </xsl:for-each>
                      </td>
                   </tr>
                </xsl:if>
-
+               
 
                <!-- ********************************************* -->
                <!-- ***  ETYMOLOGY ****************************** -->
@@ -160,38 +143,6 @@
                <!-- ** SENSES *********************************** -->
                <!-- ********************************************* -->
                <xsl:for-each select="tei:sense">
-                  <!-- ********************************************* -->
-                  <!-- ** DEF ************************************** -->
-                  <!-- ********************************************* -->
-                  <xsl:if test="./tei:def">
-                     <tr>
-                        <td class="tdSenseHead">Defs.</td>
-                        <td class="tdSense">
-                           <div class="dvDef">
-                              <xsl:for-each select="tei:def[@xml:lang='en'] | tei:def[@lang='en']">
-                                 <xsl:if test="string-length(.)&gt;1">
-                                    <span class="spTransEn">
-                                       <xsl:if test="position()&gt;1">,<xsl:text> </xsl:text></xsl:if>
-                                       <xsl:value-of select="."/>
-                                    </span>
-                                 </xsl:if>
-                              </xsl:for-each>
-
-                              <div class="dvLangSep">
-                                 <xsl:for-each select="tei:def[@xml:lang='fr'] | tei:def[@lang='fr']">
-                                    <xsl:if test="string-length(.)&gt;1">
-                                       <span class="spTransFr">
-                                          <xsl:if test="position()&gt;1">,<xsl:text> </xsl:text></xsl:if>
-                                          <xsl:value-of select="."/>
-                                       </span>
-                                    </xsl:if>
-                                 </xsl:for-each>
-                              </div>
-
-                           </div>
-                        </td>
-                     </tr>
-                  </xsl:if>
 
                   <tr>
                      <td class="tdSenseHead">Sense
@@ -199,6 +150,7 @@
                            <xsl:value-of select="position()"/>
                         </xsl:if>
 
+                        
                         <!-- ********************************************* -->
                         <!-- ** USG ************************************** -->
                         <!-- ********************************************* -->
@@ -219,6 +171,15 @@
                      </td>
 
                      <td class="tdSense">
+                        <!-- ********************************************* -->
+                        <!-- ** DEF ************************************** -->
+                        <!-- ********************************************* -->
+                        <xsl:for-each select="tei:def">
+                           <div class="dvDef">
+                              <span class="spDef">(<xsl:value-of select="."/>)</span>
+                           </div>
+                        </xsl:for-each>
+
                         <div class="dvDef">
                            <xsl:for-each select="tei:cit[@type='translationEquivalent'][@xml:lang='en']">
                               <xsl:if test="string-length(.)&gt;1">

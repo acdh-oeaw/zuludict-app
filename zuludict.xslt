@@ -8,7 +8,7 @@
          <div class="dvStats">
             <xsl:value-of select="$entryNum"/><xsl:text> </xsl:text>
             <xsl:choose>
-               <xsl:when test="$entryNum=0">records. Try to add .* to your query.</xsl:when>
+               <xsl:when test="$entryNum=0">records. Try to add .* to your query!</xsl:when>
                <xsl:when test="$entryNum=1">record</xsl:when>
                <xsl:otherwise>records</xsl:otherwise>
             </xsl:choose>

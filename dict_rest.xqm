@@ -51,8 +51,8 @@ let $rs2 := <res>{
     for $r in $rs
       return
         if ($r/@lemma)
-          then <w lemma="{$r/@lemma}">{$r/text()}</w>
-          else <w>{$r/text()}</w>
+          then <w lemma="{$r/@lemma}" index="{$r/@index}">{$r/text()}</w>
+          else <w index="{$r/@index}">{$r/text()}</w>
     (: return <w index="{$r/../@id}" lemma="{$r/@lemma}">{$r/text()}</w> :)
     (: return <w index="{$r/../@id}" lemma="{$r/text()}">{$r/text()}</w> :)
   }</res>
@@ -123,13 +123,13 @@ function zuDict:dict_query($dict as xs:string, $query as xs:string*, $xsltfn as 
       return ($r/ancestor::tei:entry, $r/ancestor::tei:cit[@type='example'], $r)[1]
 
   let $res := zuDict:distinct-nodes($entries)
-  let $res2 :=
+  (: let $res2 :=
     if (count($exptrs)=0)
       then $res
-      else for $e in $res return zuDict:expandExamplePointers($e, collection($dict))
+      else for $e in $res return zuDict:expandExamplePointers($e, collection($dict)) :)
    
   let $style := doc($xsltfn)
-  let $ress := <div type="results" xmlns="http://www.tei-c.org/ns/1.0">{$res2}</div>
+  let $ress := <div type="results" xmlns="http://www.tei-c.org/ns/1.0">{$res}</div>
   
   let $sReturn := xslt:transform-text($ress, $style)    
   

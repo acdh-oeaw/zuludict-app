@@ -329,6 +329,10 @@ div {
     border: 1px solid rgb(140,70,0);
 }
 
+.dvVariant {
+  padding-left:15px;
+  font-size:small;
+}
 .dvStats {
     background: rgb(249, 213, 128);
     border: 1px solid rgb(140,70,0);
@@ -413,9 +417,15 @@ div {
 }
 
 .spTransFr,.opWordList_fr {
-    border: 0px;
-    font-style: italic;
-    color: rgb(173, 82, 117);
+  border: 0px;
+  font-style: italic;
+  color: rgb(173, 82, 117);
+}
+
+.spTransFr,.opWordList_etymSrc {
+  border: 0px;
+  font-style: bold;
+  color: rgb(173, 82, 117);
 }
 
 .tbEntry {

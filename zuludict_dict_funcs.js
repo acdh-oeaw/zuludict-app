@@ -86,7 +86,7 @@ function prepareDictQuery(sq_) {
      s = trim(s);
      n = s.indexOf('=');
      
-     if (sQuery.length > 0) { sQuery = sQuery + 'yyy'; }
+     if (sQuery.length > 0) { sQuery = sQuery + '999'; }
      
      if (n > -1) {
         field = s.substring(0, n);

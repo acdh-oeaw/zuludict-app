@@ -55,7 +55,7 @@
       <div class="dvStart" id="dvStart">
          <div class="dvInnerFrame">        
            <p class="pStandard">By <i>Charly Moerth</i></p>            
-           <p class="pStandard">Vienna 2019</p>
+           <p class="pStandard">Vienna 2023</p>
          </div>   
       </div>
       
@@ -89,8 +89,6 @@
             </tr>
          </table>
 
-
-
          <div id="dvWordSelector" class="dvWordSelector">
             <select size="10" id="slWordSelector">
                <option></option>
@@ -103,28 +101,35 @@
       
 <div class="dvProject" id="dvProject">
     <!-- BASIC PROJECT INFORMATION -->
-    <p>This dictionary project is part of the isiZulu course taught at the Institute of African Studies of the University of Vienna. 
-  It is highly experimental in nature. 
-    It is also used as a test-bed for the development of the Viennese Lexicographic Editor (VLE) and semi-automatic 
-    data acquisition for digital dictionaries.</p>
+    <p>This dictionary project is part of the isiZulu course taught at the Institute 
+      of African Studies of the University of Vienna. It is highly experimental in nature. 
+    It is also used as a test-bed for the development of the lexicographic editor of the 
+    ˂TEI˃Enricher and the semi-automatic data acquisition for digital dictionaries.</p>
 
-    <p>The focus in compiling the dictionary has been on contemporary urban isiZulu. The data collection is 
-    accomplished in two directions: high-frequency lexical items used in most textbooks. 
-    In addition, we also try to capture data not available in other dictionaries. Particular attention has been paid 
-    to neologisms and loan words. For the time being, we do not attempt to achieve anything like a complete coverage.</p>
+    <p>The focus in compiling the dictionary has been on contemporary urban isiZulu. 
+      The data collection is accomplished along two lines. Firstly, we have tried to 
+      provide everything needed for teaching and learning isiZulu including high-frequency lexical 
+      items used in textbooks of isiZulu and typically needed in teaching the language. 
+      In addition, we also try to capture data not available in other dictionaries. 
+      Particular attention has been paid to neologisms and loan words. For the time 
+      being, we do not attempt to achieve anything like a complete coverage. We do not include 
+      data from other dictionaries the existence of which could be verified in our copora.</p>
   
-  <p>In compiling the dictionary, a corpus of digital isiZulu texts has been used which was put together from various Internet resources, 
-  in particular online newspapers. The TEI encoded data has been made searchable via SketchEngine. 
-  In October 2021 the corpus contained 12,727,434 tokens.</p>
+  <p>In compiling the dictionary, a corpus of digital isiZulu texts has been used 
+    which was put together from various Internet resources, in particular online newspapers. 
+    A very few contemporary literary works have also been used. The TEI encoded data 
+    has been made searchable via NoSke. In October 2021 the corpus contained 12,727,434 tokens.</p>
 
-    <p>As of 1.10.2021, the published dictionary contains roughly 9600 lemmata and 6577 sample sentences.</p>
+    <p>As of 1.10.2023, the published dictionary contained roughly 13.280 lemmata (single and multi-word units) 
+    and 13.000 sample sentences.</p>
 </div>
 
 <div class="dvLang" id="dvLang">
-    <p>IsiZulu is a Southern Niger-Congo language and belongs the Nguni branch spoken in Southern Africa. 
-    The Zulu people (about 12 million L1 speakers) primarily inhabit the province of KwaZulu-Natal of South Africa. 
-    With approximately a quarter of the population of South Africa, IsiZulu is the most widely used home language of the country. 
-    It is one of South Africa's 11 official languages.</p>        
+    <p>IsiZulu is a Southern Niger-Congo language and belongs to the Nguni branch 
+      of languages which are spoken in southern Africa. The amaZulu people (about 
+      12 million L1 speakers) primarily inhabit the province of KwaZulu-Natal of the South African Republic. 
+      With approximately a quarter of the population of South Africa, IsiZulu is 
+      the most widely used home language of the country. It is one of South Africa's 11 official languages.</p>        
 </div>
 
 <div class="dvHelp" id="dvHelp">
@@ -136,6 +141,7 @@
              
     <p>When you start typing letters in the input field, the preview option will show 
     you a list of tokens that start with the characters you entered so far.</p>
+
     <p>It is possible to search in particular fields of the dictionary. Wildcards are applied on the token level. </p>
     
     <table class="tbExpl">
@@ -192,13 +198,45 @@
     
     <p>You can also combine queries.</p>
     <table class="tbExpl">
-        <tr><td class="tdExpl tdFixedWidth">[dom=zoology]+[lem=^ub.*]</td>
+        <tr><td class="tdExpl tdFixedWidth">dom=zoology+lem=^ub.*</td>
             <td class="tdExpl">All animals starting with the string <i>ub</i>.</td>
             <td class="tdExpl"><a href="#" onmousedown="tryIt('[dom=zoology]+[lem=^ub.*]', '')">Try it!</a></td></tr>
         
         <tr><td class="tdExpl">[pos=adjective]+[lem=an.*]</td>
             <td class="tdExpl">All adjectives containing the string <i>an</i>.</td>
             <td class="tdExpl"><a href="#" onmousedown="tryIt('[pos=adjective]+[lem=an.*]', '')">Try it!</a></td></tr>       
+    </table>
+
+    <p>Abbreviations used in the dictionary:</p>
+    <table>
+        <tr>
+            <td>imp.</td>
+            <td><i>imperative</i></td>
+        </tr>
+        <tr>
+            <td>inf.</td>
+            <td><i>infinitive</i></td>
+        </tr>
+        <tr>
+            <td>loc.</td>
+            <td><i>locative</i></td>
+        </tr>
+        <tr>
+            <td>NP</td>
+            <td><i>Nominal phrase</i></td>
+        </tr>
+        <tr>
+            <td>pl.</td>
+            <td><i>plural</i></td>
+        </tr>
+        <tr>
+            <td>sg.</td>
+            <td><i>singular</i></td>
+        </tr>
+        <tr>
+            <td>VP</td>
+            <td><i>Verbal phrase</i> is used for any phrases containing verbs.</td>
+        </tr>
     </table>
     
     <br/><br/>

@@ -83,8 +83,9 @@ declare
 
 function zuDict:dict_query($dict as xs:string, $query as xs:string*, $xsltfn as xs:string) {    
   let $nsTei := "declare namespace tei = 'http://www.tei-c.org/ns/1.0';"
-  let $queries := tokenize($query, 'yyy')
-  let $entry := 'collection("' || $dict || '")//tei:entry'
+  let $queries := tokenize($query, '999')
+  let $entry := 'collection("' || $dict || '")//tei:entry' 
+  let $entry:=''
   let $example := 'collection("' || $dict || '")//tei:div/tei:cit[@type="example"]'
   let $qs := 
      for $query in $queries
@@ -106,9 +107,9 @@ function zuDict:dict_query($dict as xs:string, $query as xs:string*, $xsltfn as 
                                  $example||'/tei:cit/tei:quote[' || zuDict:createMatchString($terms[2] || '.*') || ']'          
           default return      $entry||'[.//node()[' || zuDict:createMatchString($terms[2]) || ']'
     
-  let $qq := string-join($qs)
-  (: let $qq := 'collection("' || $dict || '")//tei:entry'||string-join($qs) :)
-  let $results := xquery:eval($nsTei||$qq) 
+  (: let $qq := string-join($qs,'|') :)
+  let $qq := 'collection("' || $dict || '")//tei:entry'||string-join($qs)
+  let $results := xquery:eval($nsTei||$qq)   
   (: return <answer>{count($res)}||{$res}</answer> :)
   
   (: let $results := xquery:eval($query) :)
@@ -117,24 +118,25 @@ function zuDict:dict_query($dict as xs:string, $query as xs:string*, $xsltfn as 
     for $ed in $eds
       return <ed>{$ed}</ed> :)
     
-  let $exptrs := $results//tei:ref[@type = 'example']
+  (: let $exptrs := $results//tei:ref[@type = 'example']
   let $entries := 
     for $r in $results
-      return ($r/ancestor::tei:entry, $r/ancestor::tei:cit[@type='example'], $r)[1]
+      return ($r/ancestor::tei:entry, $r/ancestor::tei:cit[@type='example'], $r)[1] :) 
 
-  let $res := zuDict:distinct-nodes($entries)
+  (:-- let $res := zuDict:distinct-nodes($entries) :)  
+  let $res := zuDict:distinct-nodes($results)   
   (: let $res2 :=
     if (count($exptrs)=0)
       then $res
       else for $e in $res return zuDict:expandExamplePointers($e, collection($dict)) :)
    
   let $style := doc($xsltfn)
-  let $ress := <div type="results" xmlns="http://www.tei-c.org/ns/1.0">{$res}</div>
+  let $ress := <div type="results" xmlns="http://www.tei-c.org/ns/1.0">{$res}</div> 
   
-  let $sReturn := xslt:transform-text($ress, $style)    
+  let $sReturn := xslt:transform-text($ress, $style)      
   
-  return
-    $sReturn
+  (: return <err>{$qq}</err> :)
+  return $sReturn
      
 
     (: if (wde:check-user_($dict, $user, $pw)) :)

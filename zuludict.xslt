@@ -34,14 +34,33 @@
                <xsl:if test="tei:gramGrp/tei:gram[@type='pos']">
                   <span class="spGramGrp">
                      <xsl:text> </xsl:text>
-                     (<xsl:value-of select="tei:gramGrp/tei:gram[@type='pos']"/>
+                     (<xsl:choose>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='absolutePronoun'">abs. pron.</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='adverbialFormative'">adverbial formative</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='demonstrativeCopula'">demonstrative copula</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='interrogativeAdverb'">int. adv.</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='interrogativeParticle'">int. particle</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='lightVerbConstruction'">LVC</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='negParticle'">neg. particle</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='possessiveAttribute'">poss. attr.</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='possessivePronoun'">poss. pron.</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='possessiveStem'">possessive stem</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='quantitativePronoun'">quant. pron.</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='relativeAdnominal'">rel. adnominal</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='relativeNominal'">relative nominal</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='relativePossessivePronoun'">rel. poss. pron.</xsl:when>
+                         <xsl:when test="tei:gramGrp/tei:gram[@type='pos']='responseParticle'">response particle</xsl:when>
+
+                         <xsl:otherwise><xsl:value-of select="tei:gramGrp/tei:gram[@type='pos']"/></xsl:otherwise>
+                      </xsl:choose>
+                      
                      <xsl:if test="tei:form[@type='lemma']/tei:gramGrp/tei:gram[@type='nomClass']">, cl.<xsl:value-of select="tei:form[@type='lemma']/tei:gramGrp/tei:gram[@type='nomClass']"/></xsl:if>)
                   </span>
                </xsl:if>
             </div>
 
             <table class="tbEntry">
-               <xsl:if test="tei:form/tei:form[@type='variant']">
+               <xsl:if test="tei:form[@type='lemma']/tei:form[@type='variant']">
                   <tr>
                      <td class="tdHead">Lemma (var.)</td>
                      <td>
@@ -79,7 +98,7 @@
                      <td>
                         <xsl:for-each select="tei:form[@type='inflected']">
                            <xsl:if test="string-length(tei:orth)&gt;0">
-                              <xsl:if test="position()&gt;1">,<xsl:text>  </xsl:text></xsl:if>
+                              <xsl:if test="position()&gt;1"><br/></xsl:if>
                               <xsl:value-of select="tei:orth"/>
 
                               <xsl:if test="tei:gramGrp[tei:gram]">
@@ -88,6 +107,11 @@
                                        <xsl:if test="position()&gt;1">, </xsl:if>
                                        <xsl:choose>
                                           <xsl:when test="@type='nomClass'">cl.<xsl:value-of select="."/></xsl:when>
+                                          <xsl:when test=".='imperative'">imp.</xsl:when>
+                                          <xsl:when test=".='infinitive'">inf.</xsl:when>
+                                          <xsl:when test=".='locative'">loc.</xsl:when>
+                                          <xsl:when test=".='plural'">pl.</xsl:when>
+                                          <xsl:when test=".='singular'">sg.</xsl:when>
                                           <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
                                        </xsl:choose>
                                     </xsl:for-each>
@@ -104,7 +128,6 @@
                            <xsl:if test="tei:form[@type='variant']">
                               <xsl:for-each select="tei:form[@type='variant']">
                                  <div class="dvVariant"><b><xsl:text>Var: </xsl:text></b>
-                                    <xsl:if test="position()&gt;1"><xsl:text>, </xsl:text></xsl:if>
                                     <xsl:value-of select="tei:orth"/>
    
                                     <xsl:if test="tei:gramGrp[tei:gram]">
@@ -113,6 +136,11 @@
                                              <xsl:if test="position()&gt;1">, </xsl:if>
                                              <xsl:choose>
                                                 <xsl:when test="@type='nomClass'">cl.<xsl:value-of select="."/></xsl:when>
+                                          <xsl:when test=".='imperative'">imp.</xsl:when>
+                                          <xsl:when test=".='infinitive'">inf.</xsl:when>
+                                          <xsl:when test=".='locative'">loc.</xsl:when>
+                                          <xsl:when test=".='plural'">pl.</xsl:when>
+                                          <xsl:when test=".='singular'">sg.</xsl:when>
                                                 <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
                                              </xsl:choose>
                                           </xsl:for-each>
@@ -311,6 +339,8 @@
          </xsl:for-each>
 
          <br/><br/>
+         <br/><br/>
+         <br/><br style="margin-bottom:200px"/>
       </div>
 
    </xsl:template>

@@ -252,7 +252,7 @@
                            </xsl:if>
                         </div>
 
-                        <xsl:for-each select="tei:cit[@type='example']">
+                        <xsl:for-each select="tei:cit[@type='example']" xml:space="preserve">
                            <div class="dvExamples">
                               <xsl:apply-templates select="tei:quote"/><xsl:if test="@subtype='proverb'"><span class="dvArguments"><i> (prov.)</i></span></xsl:if>
 
@@ -349,11 +349,12 @@
    </xsl:template>
 
    <xsl:template match="tei:ref">
+   <!--
       <xsl:choose>
          <xsl:when test="@target=$var1"><span style="color:red"><xsl:apply-templates/></span></xsl:when>
          <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
-      </xsl:choose>
-      <!--<xsl:apply-templates/>-->
+      </xsl:choose>-->
+      <xsl:apply-templates/>
    </xsl:template>
 
 </xsl:stylesheet>

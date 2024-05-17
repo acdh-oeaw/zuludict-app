@@ -348,7 +348,7 @@
 
    </xsl:template>
 
-   <xsl:template match="tei:ref">
+   <xsl:template match="tei:ref" xml:space="preserve">
    <!--
       <xsl:choose>
          <xsl:when test="@target=$var1"><span style="color:red"><xsl:apply-templates/></span></xsl:when>

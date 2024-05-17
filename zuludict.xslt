@@ -1,7 +1,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:tei="http://www.tei-c.org/ns/1.0" version="1.0">
 
    <xsl:output method="html"/>
-   <!--<xsl:variable name="var1" select="concat('#',//@xml:id)"/>-->
+   <xsl:variable name="var1" select="concat('#',//@xml:id)"/>
    <xsl:template match="/">
       <div>
          <xsl:variable name="entryNum"><xsl:value-of select="count(//tei:div[@type='results']/tei:entry)"/></xsl:variable>
@@ -30,7 +30,10 @@
          <xsl:for-each select="//tei:div[@type='results']/tei:entry">
             <xsl:sort select="./tei:form/tei:orth"/>
             <div class="dvRoundLemmaBox_ltr">
-               <xsl:value-of select="tei:form[@type='lemma']/tei:orth | tei:form[@type='multiWordUnit']/tei:orth | tei:form[@type='abbrev']/tei:orth"/>
+               <xsl:value-of select="tei:form[@type='lemma']/tei:orth[1] | 
+                                     tei:form[@type='multiWordUnit']/tei:orth[1] | 
+                                     tei:form[@type='abbrev']/tei:orth[1]"/>
+                                     
                <xsl:if test="tei:gramGrp/tei:gram[@type='pos']">
                   <span class="spGramGrp">
                      <xsl:text> </xsl:text>
@@ -346,12 +349,11 @@
    </xsl:template>
 
    <xsl:template match="tei:ref">
-      <!--
       <xsl:choose>
          <xsl:when test="@target=$var1"><span style="color:red"><xsl:apply-templates/></span></xsl:when>
          <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
       </xsl:choose>
-      -->        <xsl:apply-templates/>
+      <!--<xsl:apply-templates/>-->
    </xsl:template>
 
 </xsl:stylesheet>

@@ -349,6 +349,7 @@
    </xsl:template>
 
    <xsl:template match="tei:ref" xml:space="preserve">
+<!--   <xsl:value-of select="@target"/>:<xsl:value-of select="concat('#',ancestor::tei:entry/@xml:id)"/>-->
       <xsl:choose>
          <xsl:when test="@target=concat('#',ancestor::tei:entry/@xml:id)"><span style="color:red"><xsl:apply-templates/></span></xsl:when>
          <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>

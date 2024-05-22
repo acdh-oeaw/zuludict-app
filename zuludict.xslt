@@ -28,7 +28,9 @@
          <!-- ***  ENTRY ********************************** -->
          <!-- ********************************************* -->
          <xsl:for-each select="//tei:div[@type='results']/tei:entry">
-            <xsl:sort select="./tei:form/tei:orth"/>
+            <xsl:sort select="./tei:form[@type='lemma']/tei:orth[1]"/>
+            <xsl:sort select="./tei:form[@type='multiWordUnit']/tei:orth[1]"/>
+            <xsl:sort select="./tei:form[@type='abbrev']/tei:orth[1]"/>
             <div class="dvRoundLemmaBox_ltr">
                <xsl:value-of select="tei:form[@type='lemma']/tei:orth[1] | 
                                      tei:form[@type='multiWordUnit']/tei:orth[1] | 

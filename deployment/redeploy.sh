@@ -54,7 +54,7 @@ then echo "zuludict-data does not exist or is not a git repository"
 else
 pushd zuludict-data
 git reset --hard
-git checkout master
+git checkout main
 git pull
 ret=$?
 if [ $ret != "0" ]; then exit $ret; fi
@@ -78,7 +78,7 @@ find "$d" -type f -and -name '*.xml' -exec sed -i "s~\(</revisionDesc>\)~$revisi
 done
 find $uipath -type f -and \( -name '*.js' -or -name '*.html' \) -not \( -path './node_modules/*' -or -path './cypress/*' \) -exec sed -i "s~\@data-version@~$dataversion~g" {} \;
 else
-git checkout master
+git checkout main
 fi
 popd
 ./execute-basex-batch.sh deploy-zuludict-data

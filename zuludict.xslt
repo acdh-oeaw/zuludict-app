@@ -87,7 +87,12 @@
                      <td>
                         <xsl:for-each select="tei:etym ">
                            <xsl:if test="position()&gt;1"><br/></xsl:if>
-                           ˂ <xsl:value-of select="tei:cit/tei:form/tei:orth"/> (<xsl:value-of select="tei:cit/@xml:lang"/>)
+                           <xsl:text>&lt;</xsl:text> <xsl:value-of select="tei:cit/tei:form/tei:orth"/> 
+                           <xsl:choose>
+                              <xsl:when test="string-length(tei:cit/tei:form/tei:orth)&gt;0"> (<xsl:value-of select="tei:cit/@xml:lang"/>)</xsl:when>
+                              <xsl:otherwise><xsl:text> </xsl:text><xsl:value-of select="tei:cit/@xml:lang"/></xsl:otherwise>
+                           </xsl:choose>
+                           
                         </xsl:for-each>
                      </td>
                   </tr>
@@ -195,10 +200,24 @@
                </xsl:if>
 
                <!-- ********************************************* -->
+               <!-- ***  Agreement ****************************** -->
+               <!-- ********************************************* -->
+               <xsl:if test="tei:gram[@type='agreement']">
+                  <tr>
+                     <td class="tdHead">Agreement</td>
+                     <td>
+                        <xsl:for-each select="tei:gram[@type='agreement']">
+                           <xsl:if test="position()&gt;1"><br/></xsl:if>
+                           ˂ <xsl:value-of select="."/>
+                        </xsl:for-each>
+                     </td>
+                  </tr>
+               </xsl:if>
+                              
+               <!-- ********************************************* -->
                <!-- ** SENSES *********************************** -->
                <!-- ********************************************* -->
                <xsl:for-each select="tei:sense">
-
                   <tr>
                      <td class="tdSenseHead">Sense
                         <xsl:if test="count(parent::tei:entry/tei:sense)&gt;1"><xsl:text> </xsl:text>

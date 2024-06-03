@@ -89,7 +89,7 @@
                            <xsl:if test="position()&gt;1"><br/></xsl:if>
                            <xsl:text>&lt;</xsl:text> <xsl:value-of select="tei:cit/tei:form/tei:orth"/> 
                            <xsl:choose>
-                              <xsl:when test="string-length(tei:cit/tei:form/tei:orth)&gt;0"> (<xsl:value-of select="tei:cit/@xml:lang"/>)</xsl:when>
+                              <xsl:when test="string-length(tei:cit/tei:form/tei:orth)&gt;0"><xsl:text> </xsl:text>(<xsl:value-of select="tei:cit/@xml:lang"/>)</xsl:when>
                               <xsl:otherwise><xsl:text> </xsl:text><xsl:value-of select="tei:cit/@xml:lang"/></xsl:otherwise>
                            </xsl:choose>
                            

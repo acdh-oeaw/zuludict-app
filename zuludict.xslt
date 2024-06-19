@@ -205,7 +205,7 @@
                <xsl:if test="tei:gramGrp/tei:gram[@type='agreement']">
                   <tr>
                      <td class="tdHead">Agreement</td>
-                     <td>
+                     <td> 
                         <xsl:for-each select="tei:gramGrp/tei:gram[@type='agreement']">
                            <xsl:if test="position()&gt;1"><br/></xsl:if>
                            <xsl:value-of select="."/>

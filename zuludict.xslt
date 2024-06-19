@@ -202,13 +202,13 @@
                <!-- ********************************************* -->
                <!-- ***  Agreement ****************************** -->
                <!-- ********************************************* -->
-               <xsl:if test="tei:gram[@type='agreement']">
+               <xsl:if test="tei:gramGrp/tei:gram[@type='agreement']">
                   <tr>
                      <td class="tdHead">Agreement</td>
                      <td>
-                        <xsl:for-each select="tei:gram[@type='agreement']">
+                        <xsl:for-each select="tei:gramGrp/tei:gram[@type='agreement']">
                            <xsl:if test="position()&gt;1"><br/></xsl:if>
-                           ˂ <xsl:value-of select="."/>
+                           <xsl:value-of select="."/>
                         </xsl:for-each>
                      </td>
                   </tr>
@@ -218,6 +218,7 @@
                <!-- ** SENSES *********************************** -->
                <!-- ********************************************* -->
                <xsl:for-each select="tei:sense">
+                  
                   <tr>
                      <td class="tdSenseHead">Sense
                         <xsl:if test="count(parent::tei:entry/tei:sense)&gt;1"><xsl:text> </xsl:text>
@@ -254,6 +255,16 @@
                            </div>
                         </xsl:for-each>
 
+                        <!-- ********************************************* -->
+                        <!-- ** Synonyms ********************************* -->
+                        <!-- ********************************************* -->
+                        <xsl:if test="count(tei:xr[@type='synonymy'])&gt;0">
+                        ~ <xsl:for-each select="tei:xr[@type='synonymy']">
+                              <xsl:if test="position()&gt;1">,<xsl:text> </xsl:text></xsl:if>
+                              <xsl:value-of select="tei:ref"/>
+                           </xsl:for-each>
+                        </xsl:if>
+                        
                         <div class="dvDef">
                            <xsl:for-each select="tei:cit[@type='translationEquivalent'][@xml:lang='en']">
                               <xsl:if test="string-length(.)&gt;1">

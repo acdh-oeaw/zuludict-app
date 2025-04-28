@@ -67,10 +67,15 @@ let $rs2 := <res>{
 declare function zuDict:createMatchString($in as xs:string) {
   let $s := replace($in, '"', '')
   let $s1 := 
-    if (contains($s, '*') or contains($s, '.') or contains($s, '^') or contains($s, '$') or contains($s, '+')  )
+    (: if (contains($s, '*') or contains($s, '.') or contains($s, '^') or contains($s, '$') or contains($s, '+')  )
     then 'matches(., "' || $s ||'")'
-    else '.="' || $s || '"'    
+    else '.="' || $s || '"' :)    
     
+    (: '. contains text {"'||$s||'"} using wildcards' :)    
+    
+    if (contains($in, '"')) 
+    then 'text() contains text {"'||$s||'"} phrase using wildcards '    
+    else 'text() contains text {".*'||$s||'.*"} using wildcards'            
   return $s1
 };
 
@@ -103,8 +108,7 @@ function zuDict:dict_query($dict as xs:string, $query as xs:string*, $xsltfn as 
           case 'etymLang' return $entry||'[tei:etym/tei:cit/@xml:lang[' || zuDict:createMatchString($terms[2]) || ']]'
           case 'etymSrc' return  $entry||'[tei:etym/tei:cit/tei:form/tei:orth['|| zuDict:createMatchString($terms[2]) || ']]'
           case 'pos' return      $entry||'[tei:gramGrp/tei:gram[@type="pos"][' || zuDict:createMatchString($terms[2]) || ']]'          
-          case 'examples' return $example||'/tei:quote[' || zuDict:createMatchString($terms[2] || '.*') || ']|' ||
-                                 $example||'/tei:cit/tei:quote[' || zuDict:createMatchString($terms[2] || '.*') || ']'          
+          case 'examples' return $entry||'[tei:sense/tei:cit/tei:quote[' || zuDict:createMatchString($terms[2]) || ']]'          
           default return      $entry||'[.//node()[' || zuDict:createMatchString($terms[2]) || ']'
     
   (: let $qq := string-join($qs,'|') :)

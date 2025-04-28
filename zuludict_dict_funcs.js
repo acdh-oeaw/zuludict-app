@@ -525,8 +525,8 @@ $( document ).ready(function() {
     hideAllTabs();
     $("#dvCharTable").hide();
     $("#dvWordSelector").hide();            
-    $("#dvInpText").hide();
-    $("#dvStart").show();
+    $("#dvStart").hide();
+    $("#dvInpText").show();
     
     $("#imgPleaseWait").css('visibility', 'hidden');
 });

@@ -266,7 +266,7 @@
                         </xsl:if>
                         
                         <div class="dvDef">
-                           <xsl:for-each select="tei:cit[@type='translationEquivalent'][@xml:lang='en']">
+                           <xsl:for-each select="tei:cit[@type='translationEquivalent'][@xml:lang='en' or @subtype='scientificName']">
                               <xsl:if test="string-length(.)&gt;1">
                                  <span class="spTransEn">
                                     <xsl:if test="position()&gt;1">,<xsl:text> </xsl:text></xsl:if>

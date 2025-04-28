@@ -52,49 +52,57 @@
          <button type="button" id="btnHelp1" class="btnInActive">Help</button><br/>
       </div>
       
-      <div class="dvStart" id="dvStart">
+      <div class="dvInpText" id="dvInpText" style="display: none;">
+        <table class="tbInputFrame">
+           <tr>
+              <td class="tdInputFrameLeft"><img class="imgQuery" src="looking_glass_16.png" alt="Query"/></td>
+              <td class="tdInputFrameMiddle"><input type="text" id="txt1" value="" class="inpText"/></td>
+              <td class="tdInputFrameMiddle"><img class="imgPleaseWait" id="imgPleaseWait" src="balls_in_circle.gif" alt="Query"/></td>
+              <td class="tdInputFrameRight"><input type="submit" id="btnX" class="btnX" value="✕"/></td>
+           </tr>
+           <tr>
+              <td class="tdFieldSelectorLeft"> </td>
+              <td class="tdFieldSelectorRight" colspan="3">
+                 <div id="dvFieldSelect" class="dvFieldSelect">                  
+                    <select id="slFieldSelect" class="slFieldSelect">
+                       <option value="lem">isiZulu (lemma)</option>
+                       <option value="any">Any field (any)</option>
+                      <option value="infl">isiZulu (inflected forms)</option>
+                      <option value="en">Trans. English</option>
+                      <option value="pos">POS</option>
+                      <option value="dom">Domain</option>
+                      <option value="etymLang">Lang. in etymologies</option>
+                      <option value="etymSrc">Words in etymologies</option>
+                      <option value="examples">Examples</option>
+                   </select>
+                 </div>   
+              </td>
+           </tr>
+        </table>
+
+        <div id="dvWordSelector" class="dvWordSelector">
+           <select size="10" id="slWordSelector">
+              <option></option>
+           </select>
+        </div>
+        
+        <div class="dvKWICs" id="dvKWICs"></div>
+
+        <div class="dvInnerFrame">        
+           <p class="pStandard">By <i>Charly Moerth</i></p>            
+           <p class="pStandard">Last update: 2025-04-09</p>
+         </div>   
+      </div>         
+
+      <!--
+            <div class="dvStart" id="dvStart">
          <div class="dvInnerFrame">        
            <p class="pStandard">By <i>Charly Moerth</i></p>            
            <p class="pStandard">Last update: 2024-06-24</p>
          </div>   
       </div>
-      
-      <div class="dvInpText" id="dvInpText" style="display: none;">
-         <table class="tbInputFrame">
-            <tr>
-               <td class="tdInputFrameLeft"><img class="imgQuery" src="looking_glass_16.png" alt="Query"/></td>
-               <td class="tdInputFrameMiddle"><input type="text" id="txt1" value="" class="inpText"/></td>
-               <td class="tdInputFrameMiddle"><img class="imgPleaseWait" id="imgPleaseWait" src="balls_in_circle.gif" alt="Query"/></td>
-               <td class="tdInputFrameRight"><input type="submit" id="btnX" class="btnX" value="✕"/></td>
-            </tr>
-            <tr>
-               <td class="tdFieldSelectorLeft"> </td>
-               <td class="tdFieldSelectorRight" colspan="3">
-                  <div id="dvFieldSelect" class="dvFieldSelect">                  
-                     <select id="slFieldSelect" class="slFieldSelect">
-                       <option value="any">Any field (any)</option>
-                       <option value="lem">isiZulu (lemma)</option>
-                       <option value="infl">isiZulu (inflected forms)</option>
-                       <option value="en">Trans. English</option>
-                       <option value="pos">POS</option>
-                       <option value="dom">Domain</option>
-                       <option value="etymLang">Lang. in etymologies</option>
-                       <option value="etymSrc">Words in etymologies</option>
-                       <option value="examples">Examples</option>
-                    </select>
-                  </div>   
-               </td>
-            </tr>
-         </table>
+-->
 
-         <div id="dvWordSelector" class="dvWordSelector">
-            <select size="10" id="slWordSelector">
-               <option></option>
-            </select>
-         </div>
-         
-         <div class="dvKWICs" id="dvKWICs"></div>
-      </div>         
       
       
 <div class="dvProject" id="dvProject">

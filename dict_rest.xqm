@@ -139,8 +139,8 @@ function zuDict:dict_query($dict as xs:string, $query as xs:string*, $xsltfn as 
   
   let $sReturn := xslt:transform-text($ress, $style)       
   
-  return <err>{$qq}</err>
-  (: return $qq||$sReturn :)     
+  (: return <err>{$qq}</err> :)
+  return $sReturn     
 
     (: if (wde:check-user_($dict, $user, $pw)) :)
       (: then $sReturn :)

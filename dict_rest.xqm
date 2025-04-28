@@ -75,7 +75,7 @@ declare function zuDict:createMatchString($in as xs:string) {
     
     if (contains($in, '"')) 
     then '.="'||$s||'" '    
-    else 'text() contains text {"'||$s||'"} using wildcards'            
+    else 'text() contains text ".*'||$s||'.*" using wildcards '            
   return $s1
 };
 
@@ -140,8 +140,7 @@ function zuDict:dict_query($dict as xs:string, $query as xs:string*, $xsltfn as 
   let $sReturn := xslt:transform-text($ress, $style)       
   
   (: return <err>{$qq}</err> :)
-  return $sReturn
-     
+  return $qq||$sReturn     
 
     (: if (wde:check-user_($dict, $user, $pw)) :)
       (: then $sReturn :)

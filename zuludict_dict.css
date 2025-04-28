@@ -270,9 +270,18 @@ div {
   font-size: 12pt;
 }
 
-.dvArguments {
-   color: blue;
+.dvGovernment {
+   color: #4c0080;
    font-weight: bold;
+   font-size: 8pt;
+
+}
+
+.dvUsage {
+   color: green;
+   font-weight: bold;
+   font-size: 8pt;
+
 }
 
 .dvExamples {

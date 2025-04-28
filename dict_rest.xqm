@@ -74,8 +74,8 @@ declare function zuDict:createMatchString($in as xs:string) {
     (: '. contains text {"'||$s||'"} using wildcards' :)    
     
     if (contains($in, '"')) 
-    then 'text() contains text {"'||$s||'"} phrase using wildcards '    
-    else 'text() contains text {".*'||$s||'.*"} using wildcards'            
+    then '.="'||$s||'" '    
+    else 'text() contains text {"'||$s||'"} using wildcards'            
   return $s1
 };
 

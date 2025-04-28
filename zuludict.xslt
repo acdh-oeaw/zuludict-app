@@ -67,7 +67,7 @@
             <table class="tbEntry">
                <xsl:if test="tei:form[@type='lemma']/tei:form[@type='variant']">
                   <tr>
-                     <td class="tdHead">Lemma (var.)</td>
+                     <td class="tdHead">Variant</td>
                      <td>
                         <xsl:for-each select="tei:form[@type='lemma']/tei:form[@type='variant'] ">
                            <xsl:if test="position()&gt;1"><xsl:text>, </xsl:text></xsl:if>
@@ -230,17 +230,17 @@
                         <!-- ** USG ************************************** -->
                         <!-- ********************************************* -->
                         <xsl:if test="tei:usg">
-                           <div class="dvDef">
-                              <span class="dvArguments"><xsl:value-of select="tei:usg"/></span>
+                           <div class="dvUsage">
+                              (<xsl:for-each select="tei:usg"><span class="dvUsage"><xsl:value-of select="."/></span></xsl:for-each>)                              
                            </div>
                         </xsl:if>
 
                         <!-- ********************************************* -->
                         <!-- ** ARGUMENTS ******************************** -->
                         <!-- ********************************************* -->
-                        <xsl:if test="tei:gramGrp/tei:gram[@type='arguments']">
+                        <xsl:if test="tei:gramGrp/tei:gram[@type='government']">
                            <div class="dvDef">
-                              <span class="dvArguments"><xsl:value-of select="tei:gramGrp/tei:gram[@type='arguments']"/></span>
+                              <span class="dvGovernment">Followed by <xsl:value-of select="tei:gramGrp/tei:gram[@type='government']"/></span>
                            </div>
                         </xsl:if>
                      </td>
